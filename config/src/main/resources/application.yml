@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: native
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:./config-repo
+        default-label: master
+
+server:
+  port: 8001
+
+info:
+  name: ${spring.application.name}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    lease-expiration-duration-in-seconds: 10
+    lease-renewal-interval-in-seconds: 5
+#    instance-id:
