@@ -20,7 +20,7 @@
         <module>eureka</module>
     </modules>
 
-    <!-- 版本控制 -->
+    <!-- 属性 - 版本控制 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -45,4 +45,24 @@
             </dependency>-->
         </dependencies>
     </dependencyManagement>
+
+    <!-- =========================== Build 构建 =========================== -->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 解决idea无法关闭SpringBoot服务的问题 -->
+                    <fork>false</fork>
+                    <!-- spring-boot:run 中文乱码解决 -->
+                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+
 </project>

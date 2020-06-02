@@ -1,8 +1,69 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<configuration debug="false" scan="true" scanPeriod="6000">
-<!--    <property></property>-->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 定义日志文件名称，与工程名一致 -->
+    <property name="APP_NAME" value="eureka" />
+    <!-- 定义日志的根目录 -->
+    <property name="LOG_HOME" value="${user.home}/logs/${APP_NAME}" />
+    <!-- 定义日志等级、大小等 -->
+    <property name="ROOT_LEVEL" value="INFO" />
+    <property name="MAX_FILE_SIZE" value="50MB" />
+    <property name="MAX_HISTORY" value="90" />
+    <property name="TOTAL_SIZE_CAP" value="1GB" />
 
+    <!-- 控制台输出设置 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <pattern>
+                    %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread|%X{X-B3-TraceId:-}|%X{X-B3-SpanId:-}|%X{X-B3-ParentSpanId:-}] %-5level %logger{50}-%msg%n
+                </pattern>
+            </layout>
+        </encoder>
+    </appender>
 
+    <!-- 正常文件输出设置 -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${APP_NAME}-%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread|%X{X-B3-TraceId:-}|%X{X-B3-SpanId:-}|%X{X-B3-ParentSpanId:-}] %-5level %logger{50}-%msg%n
+            </pattern>
+        </encoder>
+    </appender>
 
+    <!-- 异常文件输出设置，将异常堆栈另外保存一份到单独的文件中，方便查找 -->
+    <appender name="FILE_ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${APP_NAME}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.zip</fileNamePattern>
+            <maxFileSize>${MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread|%X{X-B3-TraceId:-}|%X{X-B3-SpanId:-}|%X{X-B3-ParentSpanId:-}] %-5level %logger{50}-%msg%n
+            </pattern>
+        </encoder>
+        <!-- 只打印错误日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
 
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="INFO" />
+
+    <root level="${ROOT_LEVEL}">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE_ERROR" />
+    </root>
 </configuration>
