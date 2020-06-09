@@ -1,0 +1,49 @@
+feignclient:
+    security:
+      service-id: security
+
+#security:
+#  ribbon:
+#    listOfServers: https://10.60.128.2:8080
+#    NIWSServerListClassName: com.netflix.loadbalancer.ConfigurationBasedServerList
+
+# 租户、用户安全修改地址
+#auth:
+#    ssl:
+#      isDisableSSLVerification: true
+#    service:
+#      platform: smarto
+#      tenantname: xk
+#      authtype: 1101
+#      client_id: ENC(N32X5YR9XFh/4UOMge/lA==) #jaspyt加密后的客户端应用id
+#      client_secret: ENC(SSODwat39h+leRiRbXYmP5+yeovszU/NfcHmB)
+#      grant_type: client_credentials
+#    execution:
+#      refreshAuthToken: true #是否定时获取安全组件接口access_token
+#      refreshTokenTime: 300000 #获取周期access_token，单位毫秒
+#    auth-starter:
+#      enabled: true # 是否开启auth的feign的远程服务
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
