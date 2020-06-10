@@ -9,6 +9,11 @@ spring:
         native:
           search-locations: file:./config-repo
         default-label: master
+#        git:
+#          uri:
+#          search-paths: config-repo
+#          username: dailybuild
+#          password: dailybuild2018
 
 server:
   port: 8001
@@ -21,4 +26,18 @@ eureka:
     prefer-ip-address: true
     lease-expiration-duration-in-seconds: 10
     lease-renewal-interval-in-seconds: 5
-#    instance-id:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+  client:
+    service-url:
+      defaultZone: ${eureka.uri:http://127.0.0.1:8000/eureka}
+    healthcheck:
+      enabled: true
+
+service:
+  static:
+    location: config-repo
+
+security:
+  user:
+    name: xcokr
+    password: xcokr
