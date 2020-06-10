@@ -1,0 +1,18 @@
+feignclient:
+#    auth:
+#      service-id: auth
+    common:
+      service-id: common
+
+
+
+
+
+
+
+
+
+
+
+
+
