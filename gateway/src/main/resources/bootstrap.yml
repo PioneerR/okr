@@ -1,18 +1,162 @@
+spirng:
+  application:
+    name: gateway
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+      location: /home/ap/ftfs/upload_tmp
+  session:
+    store-type: redis
+    maxInactiveIntervalInSeconds: 1800 # session 有效期（单位：秒）
+  cloud:
+    config:
+#      uri:
+      name: config
+      profile: ${config.profile:dev}
+      fail-fast: true
+      username: xcokr
+      password: xcokr
+      discovery:
+        enabled: true
+        service-id: config
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+#    password: ENC(XXXXXXXXX) # 该配置项为使用jasypt加密后的密文
+    password: 123456 # 该配置项为使用jasypt加密后的密文
+#    url: jdbc:oracle:thin:@//128.196.97.14:11521/rpapddb
+    url: jdbc:mysql://localhost:3306/shaper?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    hikari:
+      idle-timeout: 600000
+
+server:
+  port: 8002
+#  jetty:
+#    max-http-post-size: 449088 #jetty限制请求报文大小
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: false
+ribbon:
+  ConnectTimeout: 30000
+  ReadTimeout: 120000
+
+# 通过指定URL配置了Zuul路由，则配置以下两个超时时间
+
 feignclient:
-#    auth:
-#      service-id: auth
     common:
       service-id: common
+#    privilege:
+#      getUserPermissionUri: "/privilege/user/getAvailableHTTPAPIs"
+#      getChannelPermissionUri: "/privilege/channel/getAvailableHTTPAPIs"
+#      service-id: privilege
+
+zuul:
+  ignored-patterns: /auth/verifyByPwd/**, /auth/validatePhoneCode/** # 对这些uri不路由，需要新增用，隔开即可
+  sensitive-headers:
+  add-host-header: true
+  ignored-services: '*' # 禁用除以下配置的路由以外的服务
+  host:
+    connect-timeout-millis: 600000
+    socket-timeout-millis: 600000
+    connection-request-timeout-millis: 600000
+  routes:
+    loginByPassword:
+      path: /loginByPassword
+      url: forward:/
+    loginByPhoneCode:
+      path: /loginByPhoneCode
+      url: forward:/
+    logout:
+      path: /logout
+      url: forward:/
+    common:
+      path: /common/**
+      service-id: common
+
+feign:
+  hystrix:
+    enabled: true
+  httpclient:
+    enabled: true # 禁用feign的hystrix
+
+#熔断时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisessonds: 600000
+
+common:
+  ribbon:
+    ConnectTimeout: 10000
+    ReadTimeout: 30000
+
+jasypt:
+  encryptor:
+    bean: encryptorBean
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+    instance:
+      prefer-ip-address: true
+      instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+swagger:
+  api-enable: true
+  html-enable: true
+  title: 网关模块API文档
+  description: Gateway | 网关模块
+  version: 1.0
+  scan-packages:
+    - com.xc.gateway.controller
+  apis:
+    - name: Gateway Api
+      location: /v2/api-docs
+    - name: Common Api
+      location: /common/v2/api-docs
+#gateway:
+#  auth: auth
+
+filter:
+  pre:
+    authorize:
+      ignoreAuthorizeUri: "/loginByPassword;/loginByPhoneCode;/logout;/auth/getPhoneCode;" # 无需登陆即可访问的页面或服务 测试环境如果要开启swagger整合，需要针对各个模块的swagger api 也加入白名单 如 /common/v2/api-docs
+      channelPermissionTimeOut:
+        seconds: 300 #通道权限缓存时长（单位：秒）
+      channel:
+        enable: false #通道权限过滤开关
+      user:
+        enable: false #用户权限过滤开关
+    ip:
+      whiteIp:
+        enable: false #白名单过滤开关
+      blackIp:
+        enable: false #黑名单过滤开关
+      whiteIpList: 128.64.200.125;128.64.200.114;127.0.0.1 #白名单IP列表
+      blackIpList: 128.64.200.112;128.64.200.113 #黑名单列表
+      message:
+        maxMessageLength: 1 #请求报文大小（MB）
+
+login:
+  response:
+    fieldList: userName,userId,menuList,roleList,tel,loginName,cellPhone #配置从UserDetail中取字段列表 来返回给前端页面
+  requireSms: 3     # 失败次数达到这个次数，需要同时使用短信验证码/或直接使用短信验证码接口进行登录
+  maxRetryTimes: 10 # 失败次数达到这个次数，将锁定账号/手机号
+  lockedTime: 86400 # 锁定时间 单位：秒
 
 
+logging:
+  config: classpath:logback-spring.xml
 
-
-
-
-
-
-
-
-
-
-
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml

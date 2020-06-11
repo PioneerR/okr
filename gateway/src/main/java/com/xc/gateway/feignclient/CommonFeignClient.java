@@ -13,4 +13,6 @@ public interface CommonFeignClient {
 	@PostMapping("/init-common-data")
 	void initCommonData();
 
+
+
 }
