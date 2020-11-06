@@ -1,11 +1,11 @@
 # 服务端口
 server:
-  port: 8000     # Eureka默认端口8761
+  port: 8001     # Eureka默认端口8761
 
 # 指定生效的配置文件
 spring:
   application:
-    name: eureka # 应用服务名
+    name: eureka2 # 应用服务名
   profiles:
     active: native # 服务启动时，制定profiles配置使用单机配置 或 集群配置
   # 同时使用 EurekaSecurityConfig进行配置，否则服务提供者注册失败
@@ -41,7 +41,7 @@ eureka:
       defaultZone: http://admin:123456@eureka:8000/eureka/,http://admin:123456@eureka2:8001/eureka/
 
   instance:
-    hostname: eureka        # Eureka实例的主机名称 DS Replicas显示
+    hostname: eureka2       # Eureka实例的主机名称 DS Replicas显示
     prefer-ip-address: true # 客户端在注册时使用自己的IP而不是主机名，缺省：false
 
 
