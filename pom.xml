@@ -20,8 +20,9 @@
         <module>eureka</module>
         <module>config</module>
         <module>gateway</module>
-        <module>common</module>
+<!--        <module>common</module>-->
         <module>relation-pro</module>
+        <module>common-api</module>
     </modules>
 
     <!-- 属性 - 版本控制 -->
