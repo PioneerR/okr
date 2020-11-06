@@ -7,7 +7,7 @@ mybatis:
 
 spring:
   application:
-    name: relation-pro2
+    name: relation-pro  # 集群时，此处的应用名称相同
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource # 配置当前要使用的数据源的操作类型
     driver-class-name: com.mysql.jdbc.Driver     # 配置MySQL的驱动程序类
