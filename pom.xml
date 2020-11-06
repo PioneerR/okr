@@ -25,6 +25,7 @@
         <module>relation-pro</module>
         <module>relation-pro2</module>
         <module>common-api</module>
+        <module>consumer</module>
     </modules>
 
     <!-- 属性 - 版本控制 -->
