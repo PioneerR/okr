@@ -7,7 +7,7 @@ mybatis:
 
 spring:
   application:
-    name: relation-pro2
+    name: relation-pro
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource # 配置当前要使用的数据源的操作类型
     driver-class-name: com.mysql.jdbc.Driver     # 配置MySQL的驱动程序类
@@ -28,7 +28,7 @@ eureka:
     registry-fetch-interval-seconds: 30
     service-url:
 #      defaultZone: http://admin:123456@127.0.0.1:8000/eureka # 此处的admin:123456是SpringSecurity的账号密码
-      defaultZone: http://admin:123456@eureka:8000/eureka/,http://admin:123456@eureka2:8001/eureka/
+      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
 
   instance:
     instance-id: relation-pro2               # 页面中的status值
@@ -41,7 +41,7 @@ eureka:
 # 监控的配置：健康检查
 info:
   app.name: relation-pro2
-  company.name: enjoy
+  company.name: com.xc
   build.artifactId: $project.artifactId$ # 父pom有对$进行解析的插件plugins的配置
   build.modelVersion: $project.modelVersion$
 
