@@ -32,6 +32,8 @@
         <module>consumer-hystrix-dashboard</module>
         <module>security</module>
         <module>service</module>
+        <module>relation-user-hystrix</module>
+        <module>consumer-turbine</module>
     </modules>
 
     <!-- 属性 - 版本控制 -->
