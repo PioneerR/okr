@@ -2,7 +2,7 @@ server:
   port: 80
 
 feign:
-  compression:
+  compression:    # feign压缩配置
     request:
       enabled: true
       mime-types: # 可以被压缩的类型
