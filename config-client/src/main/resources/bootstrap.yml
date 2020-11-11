@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: config-client # 定义要读取的资源文件的名称
+      name: config-client # 定义要读取的yml文件名称
       profile: dev # 定义profile的 名称
       label: master # 定义配置文件所在的分支
       #uri: http://localhost:7101 # SpringCloudConfig的服务地址
