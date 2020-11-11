@@ -13,12 +13,12 @@ eureka:
     service-url:
       #      defaultZone: http://admin:123456@127.0.0.1:8000/eureka # 此处的admin:123456是SpringSecurity的账号密码
       defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
-    instance:
-      instance-id: relation-user                # 页面中的status值
-      prefer-ip-address: true                  # 客户端在注册时使用自己的ip而不是主机名，默认false
-      # 心跳检查
-      lease-renewal-interval-in-seconds: 2     # 设置心跳的时间间隔（默认是30秒）
-      lease-expiration-duration-in-seconds: 5  # 如果现在超过了5秒的间隔（默认是90秒）
+  instance:
+    instance-id: relation-user               # 页面中的status值
+    prefer-ip-address: true                  # 客户端在注册时使用自己的ip而不是主机名，默认false
+    # 心跳检查
+    lease-renewal-interval-in-seconds: 2     # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5  # 如果现在超过了5秒的间隔（默认是90秒）
 
 info:
   app.name: relation-user
