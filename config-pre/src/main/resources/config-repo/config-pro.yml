@@ -1,11 +1,10 @@
 spring:
   datasource:
-#    type: com.alibaba.druid.pool.DruidDataSource
-    type: com.zaxxer.hikari.HikariDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456 # 该配置项为使用jasypt加密后的密文
-    url: jdbc:mysql://localhost:3306/shaper?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/relation?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai
     hikari:
       idle-timeout: 600000
 #  redis:

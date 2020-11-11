@@ -35,6 +35,8 @@
         <module>relation-user-hystrix</module>
         <module>consumer-turbine</module>
         <module>zuul-gateway</module>
+        <module>config</module>
+        <module>config-client</module>
     </modules>
 
     <!-- 属性 - 版本控制 -->
