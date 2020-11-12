@@ -1,3 +1,0 @@
-spring:
-  application:
-    name: eureka-config # 应用服务名

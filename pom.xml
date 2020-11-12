@@ -18,7 +18,6 @@
     <!-- 子模块 -->
     <modules>
         <module>eureka</module>
-        <module>eureka-config</module>
         <module>eureka2</module>
 <!--        <module>config</module>-->
 <!--        <module>gateway</module>-->
