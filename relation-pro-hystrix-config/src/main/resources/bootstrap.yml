@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    config:
+      uri: http://localhost:7000
+      name: relation-pro-hystrix-config
+      profile:  beta
+      label:  master
+      username: admin
+      password: 123456
