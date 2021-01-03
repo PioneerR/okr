@@ -1,0 +1,94 @@
+spring:
+  profiles:
+    active:
+      - dev
+---
+server:
+  port: 8080
+mybatis:
+  mapper-locations: # 所有的mapper映射文件
+    - classpath:mapping/*.xml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 配置当前要使用的数据源的操作类型
+    driver-class-name: com.mysql.jdbc.Driver # 配置MySQL的驱动程序类
+    url: jdbc:mysql://localhost:3306/relation?serverTimezone=GMT%2B8 # 数据库连接地址
+    username: root   # 数据库用户名
+    password: 123456 # 数据库连接密码
+  application:
+    name: relation-pro-hystrix-config
+  profiles: dev
+  security:
+    user:
+      name: admin  # 认证用户名
+      password: 123456  # 认证密码
+      roles:
+        - USER # 授权角色
+
+eureka:
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+  instance:
+    instance-id: relation-pro-hystrix-config-dev
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5  # 如果现在超过了5秒的间隔（默认是90秒）
+
+info:
+  app.name: relation-pro-hystrix-config
+  company.name: com.xc.dev
+  build.artifactId: $project.artifactId$
+  build.modelVersion: $project.modelVersion$
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+---
+server:
+  port: 8081
+mybatis:
+  mapper-locations: # 所有的mapper映射文件
+    - classpath:mapping/*.xml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource # 配置当前要使用的数据源的操作类型
+    driver-class-name: com.mysql.jdbc.Driver # 配置MySQL的驱动程序类
+    url: jdbc:mysql://localhost:3306/relation?serverTimezone=GMT%2B8 # 数据库连接地址
+    username: root # 数据库用户名
+    password: 123456 # 数据库连接密码
+  application:
+    name: relation-pro-hystrix-config
+  profiles: beta
+  security:
+    user:
+      name: admin  # 认证用户名
+      password: 123456  # 认证密码
+      roles:
+        - USER # 授权角色
+
+eureka:
+  client: # 客户端进行Eureka注册的配置
+    service-url:
+      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+  instance:
+    instance-id: relation-pro-hystrix-config-beta
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5  # 如果现在超过了5秒的间隔（默认是90秒）
+
+info:
+  app.name: relation-pro-hystrix-config
+  company.name: com.xc.beta
+  build.artifactId: $project.artifactId$
+  build.modelVersion: $project.modelVersion$
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

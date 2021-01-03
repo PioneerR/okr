@@ -2,7 +2,6 @@ package com.xc.controller;
 
 import com.xc.pojo.Product;
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,44 +17,42 @@ import java.util.List;
 @RequestMapping("/consumer")
 public class ConsumerProductController {
 
-	public static final String PRODUCT_GET_URL = "http://RELATION-PRO/prodcut/get/";
-	public static final String PRODUCT_LIST_URL = "http://RELATION-PRO/prodcut/list/";
-	public static final String PRODUCT_ADD_URL = "http://RELATION-PRO/prodcut/add/";
+    public static final String PRODUCT_GET_URL = "http://RELATION-PRO/product/get/";
+    public static final String PRODUCT_LIST_URL= "http://RELATION-PRO/product/list/";
+    public static final String PRODUCT_ADD_URL = "http://RELATION-PRO/product/add/";
+	public static final String PRODUCT_TOPIC = "RELATION-PRO";
 
-	@Resource
-//	@LoadBalanced //调用负载均衡注解
-	private RestTemplate restTemplate;
+    @Resource
+    private RestTemplate restTemplate;
+    @Resource
+    private HttpHeaders httpHeaders;
+    @Resource
+    private LoadBalancerClient loadBalancerClient;
 
-	@Resource
-	private LoadBalancerClient loadBalancerClient;
+    @RequestMapping("/product/get")
+    public Object getProduct(long id) {
+        Product product = restTemplate.exchange(PRODUCT_GET_URL + id,
+				HttpMethod.GET,new HttpEntity<>(httpHeaders), Product.class).getBody();
+        return  product;
+    }
 
-	@Resource
-	private HttpHeaders httpHeaders;
-
-	@RequestMapping("/product/get")
-	public Object getProduct(long id) {
-		Product product = restTemplate.exchange(
-				PRODUCT_GET_URL + id, HttpMethod.GET, new HttpEntity<>(httpHeaders), Product.class).getBody();
-		return product;
-	}
-
-	@RequestMapping("/product/list")
-	public Object listProduct() {
+    @RequestMapping("/product/list")
+    public Object listProduct() {
 		ServiceInstance serviceInstance = this.loadBalancerClient.choose("RELATION-PRO") ;
 		System.out.println(
 				"【*** ServiceInstance ***】host = " + serviceInstance.getHost()
 						+ "、port = " + serviceInstance.getPort()
 						+ "、serviceId = " + serviceInstance.getServiceId());
 
-		List<Product> list = restTemplate.exchange(
-				PRODUCT_LIST_URL, HttpMethod.GET, new HttpEntity<>(httpHeaders), List.class).getBody();
-		return list;
-	}
+        List<Product> list = restTemplate.exchange(PRODUCT_LIST_URL, HttpMethod.GET,
+                new HttpEntity<>(httpHeaders), List.class).getBody();
+        return  list;
+    }
 
-	@RequestMapping("/product/add")
-	public Object addPorduct(Product product) {
-		Boolean result = restTemplate.exchange(PRODUCT_ADD_URL, HttpMethod.POST,
-				new HttpEntity<Object>(product, httpHeaders), Boolean.class).getBody();
-		return result;
-	}
+    @RequestMapping("/product/add")
+    public Object addPorduct(Product product) {
+        Boolean result = restTemplate.exchange(PRODUCT_ADD_URL, HttpMethod.POST,
+                new HttpEntity<Object>(product,httpHeaders), Boolean.class).getBody();
+        return  result;
+    }
 }

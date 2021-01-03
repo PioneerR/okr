@@ -1,0 +1,41 @@
+server:
+  port: 9010
+
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+  instance:
+    instance-id: zuul-gateway
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 2    # 设置心跳的时间间隔（默认是30秒）
+    lease-expiration-duration-in-seconds: 5 # 如果现在超过了5秒的间隔（默认是90秒）
+
+spring:
+  application:
+    name: zuul-gateway
+  security:
+    user:
+      name: admin
+      password: 123456
+
+#zuul:
+#  routes:
+#    relation-user: /users-proxy/**
+#  ignored-services: '*'           # 屏蔽直接通过服务名调用接口的方式
+
+# 路由管理
+zuul:
+  routes:
+    user:
+      path: /**
+      serviceId: relation-user     # 服务名最终会被解析为 ip:端口
+#    user2:
+#      path: /users2-proxy/**
+#      url: http://localhost:8090/ # 也可以采用url的方式
+    product:
+      path: /**
+      serviceId: relation-pro
+  ignored-services: "*"            # 屏蔽直接通过服务名调用接口的方式
+#  prefix: /relation                # 所有访问路径，都加前缀

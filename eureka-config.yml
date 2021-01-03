@@ -1,0 +1,96 @@
+spring:
+  profiles:
+    active:
+      - dev
+---
+server:
+  port: 7001
+eureka:
+  server:
+    eviction-interval-timer-in-ms: 1000   #设置清理的间隔时间，而后这个时间使用的是毫秒单位（默认是60秒）
+    enable-self-preservation: false #设置为false表示关闭保护模式
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+  instance: # eureka实例定义
+    hostname: eureka # 定义 Eureka 实例所在的主机名称
+
+spring:
+  profiles: dev
+  security:
+    user:
+      name: admin
+      password: 123456
+  application:
+    name: eureka-config-dev
+---
+server:
+  port: 7002
+eureka:
+  server:
+    eviction-interval-timer-in-ms: 1000   #设置清理的间隔时间，而后这个时间使用的是毫秒单位（默认是60秒）
+    enable-self-preservation: false #设置为false表示关闭保护模式
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+  instance: # eureka实例定义
+    hostname: eureka # 定义 Eureka 实例所在的主机名称
+
+spring:
+  profiles: beta
+  security:
+    user:
+      name: admin
+      password: 123456
+  application:
+    name: eureka-config-beta
+
+## 服务端口
+#server:
+#  port: 8000     # Eureka默认端口8761
+#
+## 指定生效的配置文件
+#spring:
+#  application:
+#    name: eureka # 应用服务名
+#  profiles:
+#    active: native # 服务启动时，制定profiles配置使用单机配置 或 集群配置
+#  # 同时使用 EurekaSecurityConfig进行配置，否则服务提供者注册失败
+#  security:
+#    user:
+#      name: admin  # 认证用户名
+#      password: 123456  # 认证密码
+#      roles:
+#        - USER # 授权角色
+#
+## 日志配置文件
+#logging:
+#  config: classpath:logback-spring.xml
+#
+## Eureka
+#eureka:
+#  server:
+#    # Eureka服务器清理无效节点的间隔时间，毫秒单位（默认是60秒）
+#    eviction-interval-timer-in-ms: 60000
+#    # 默认开启保护模式，当Eureka服务器在短时间内丢失过多客户端时，自我保护模式可使服务端不再删除失去连接的客户端
+#    enable-self-preservation: false
+#
+#  client:
+#    # 是否将自己注册到eureka server，默认true
+#    register-with-eureka: false
+#    # 表示是否从Eureka Server获取注册信息，默认true。
+#    # 因为这是一个单点的eureka server，不需要同步其他的eureka server节点的数据，故而设为false
+#    fetch-registry: false
+#    service-url:
+#      # Eureka服务器的地址，默认值http://localhost:8761/eureka
+#      # 如果服务注册中心为高可用集群时，多个注册中心地址以逗号分隔
+#      #      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+#      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+#
+#  instance:
+#    hostname: eureka        # Eureka实例的主机名称 DS Replicas显示
+#    prefer-ip-address: true # 客户端在注册时使用自己的IP而不是主机名，缺省：false

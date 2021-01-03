@@ -1,0 +1,12 @@
+server:
+ port: 9002
+
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+        defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+
+turbine:
+  app-config: RELATION-PRO,RELATION-USER
+  cluster-name-expression: new String("default")
