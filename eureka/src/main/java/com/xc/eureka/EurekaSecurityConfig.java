@@ -16,8 +16,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class EurekaSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        super.configure(http);
+    protected void configure(HttpSecurity security) throws Exception {
+        security.csrf().disable();
+        super.configure(security);
     }
 }
