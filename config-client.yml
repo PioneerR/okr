@@ -11,11 +11,11 @@ spring:
   application:
     name: config-client-dev
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
-    register-with-eureka: false
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+#    register-with-eureka: false
 
 info:
   app.name: config-client-dev
@@ -29,11 +29,11 @@ spring:
   application:
     name: config-client-beta
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
-    register-with-eureka: false
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
+#    register-with-eureka: false
 
 info:
   app.name: config-client-beta
