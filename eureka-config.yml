@@ -41,13 +41,13 @@ eureka:
     hostname: eureka # 定义 Eureka 实例所在的主机名称
 
 spring:
-  profiles: beta
+  profiles: pro
   security:
     user:
       name: admin
       password: 123456
   application:
-    name: eureka-config-beta
+    name: eureka-config-pro
 
 ## 服务端口
 #server:

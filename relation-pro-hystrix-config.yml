@@ -63,7 +63,7 @@ spring:
     password: 123456 # 数据库连接密码
   application:
     name: relation-pro-hystrix-config
-  profiles: beta
+  profiles: pro
   security:
     user:
       name: admin  # 认证用户名
@@ -76,14 +76,14 @@ eureka:
     service-url:
       defaultZone: http://admin:123456@eureka:8000/eureka,http://admin:123456@eureka2:8001/eureka
   instance:
-    instance-id: relation-pro-hystrix-config-beta
+    instance-id: relation-pro-hystrix-config-pro
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 2 # 设置心跳的时间间隔（默认是30秒）
     lease-expiration-duration-in-seconds: 5  # 如果现在超过了5秒的间隔（默认是90秒）
 
 info:
   app.name: relation-pro-hystrix-config
-  company.name: com.xc.beta
+  company.name: com.xc.pro
   build.artifactId: $project.artifactId$
   build.modelVersion: $project.modelVersion$
 

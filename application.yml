@@ -9,6 +9,6 @@ spring:
     name: config-dev
 ---
 spring:
-  profiles: default
+  profiles: pro
   application:
-    name: config-default
+    name: config-pro
