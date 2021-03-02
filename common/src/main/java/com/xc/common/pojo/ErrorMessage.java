@@ -1,4 +1,4 @@
-package com.xc.common.entity;
+package com.xc.common.pojo;
 
 import lombok.Data;
 

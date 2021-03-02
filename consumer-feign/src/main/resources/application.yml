@@ -15,7 +15,7 @@ feign:
 
 logging:
   level:
-    cn.enjoy.service: DEBUG
+    com.xc.service: DEBUG
 
 eureka:
   client:
