@@ -8,10 +8,18 @@ import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import java.nio.charset.Charset;
 import java.util.Base64;
 
+/**
+ * 权限相关的zuul过滤器，type为PRE_TYPE
+ *
+ * @author shaper 2021/3/2 16:08
+ */
 public class AuthorizedRequestFilter extends ZuulFilter {
 
 	@Override
 	public String filterType() {
+		// 前置的过滤器：请求发送之前进行过滤的
+		// 必须设置请求头信息，才能进行访问
+		// 还有另外三种类型：error、post、route
 		return FilterConstants.PRE_TYPE;
 	}
 
