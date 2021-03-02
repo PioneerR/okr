@@ -14,23 +14,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
-                auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).withUser("root").password(new BCryptPasswordEncoder().encode("enjoy")).roles("USER").
-                        and().withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("USER", "ADMIN");
+    public void configure(AuthenticationManagerBuilder auth)throws Exception {
+		auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder()).
+			withUser("root").password(new BCryptPasswordEncoder().encode("enjoy")).roles("USER").
+			and().
+			withUser("admin").password(new BCryptPasswordEncoder().encode("123456")).roles("USER", "ADMIN");
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-
-        http.httpBasic().and().authorizeRequests().anyRequest()
-                .fullyAuthenticated();
-        http.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-        http.csrf().disable();
-    }
+    protected void configure(HttpSecurity security) throws Exception {
+		security.httpBasic().and().authorizeRequests().anyRequest().fullyAuthenticated();
+		security.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		security.csrf().disable();
+	}
 
     /**
      * 以下请求，不需要做权限控制

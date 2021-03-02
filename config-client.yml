@@ -25,9 +25,9 @@ server:
   port: 7011
 
 spring:
-  profiles: beta
+  profiles: pro
   application:
-    name: config-client-beta
+    name: config-client-pro
 
 eureka:
   client:
@@ -36,5 +36,5 @@ eureka:
     register-with-eureka: false
 
 info:
-  app.name: config-client-beta
-  company.name: com.xc.beta
+  app.name: config-client-pro
+  company.name: com.xc.pro
