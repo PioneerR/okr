@@ -13,6 +13,7 @@ import java.io.InputStream;
 
 @Component
 public class ProviderFallback implements   FallbackProvider  {
+
     /**
      * 所有路径 - 服务降级
      *
@@ -20,7 +21,7 @@ public class ProviderFallback implements   FallbackProvider  {
      */
 	@Override
     public String getRoute() {
-        return "*";
+        return "*"; // 代表对任何服务，都是有效的，*可以替换为具体的服务名称
     }
 
     @Override
